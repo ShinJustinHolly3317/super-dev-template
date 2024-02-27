@@ -163,7 +163,7 @@ check_and_start_colima() {
 createJiraIssue() {
     # Set Jira configuration variables
     local jiraDomain="chocotv.atlassian.net"
-    local userEmail="justin.kao@choco.media"
+    local userEmail="輸入 email"
     local apiToken="輸入 api token"
     local projectKey="SRE"
     local issueType="Task"
