@@ -172,14 +172,14 @@ createJiraIssue() {
     # Prepare Authorization header
     local authHeader=$(echo -n "$userEmail:$apiToken" | base64)
 
-    # Set project info
-    local projectInfo=$(cat <<EOF
-    {
-        "projectName": "Video Ad Server",
-        "releaseVer": "3.3.0"
-    }
-EOF
-    )
+    # Read the latest part of CHANGELOG.md into changeLog variable
+    local changeLog=$(awk '/^## \[.*\]/ {capture = 1; next} capture && /^\-/ {print; exit}' CHANGELOG.md)
+
+    # Ask user for project information
+    echo "Enter the project name:"
+    read projectName
+    echo "Enter the release version:"
+    read releaseVer
 
     # Set the issue fields
     local postData=$(cat <<EOF
@@ -197,7 +197,7 @@ EOF
           "type": "paragraph",
           "content": [
             {
-              "text": "上版 Release Note 格式範例，並請回答下列問題\\n\\n### Release Note\\n\\nchoco-tv-web [9.61.0-release]\\n\\n* [fix] 調整 desktop 戲劇播放頁的廣告版位載入和渲染時機\\n* [feature] 戲劇播放頁 Mobile AMP 全劇開放\\n* ...\\n\\n### 相關問題\\n\\nQ1. 請問本次發版是否有涉及 Database Schema Change，若有 Migration 是否已經完成？\\n\\nAns: \\n\\nQ2. 請問本次發版是否有涉及 Database / Redis 等連線相關改動，若有發版連線相關前置準備是否已經完成？\\n\\nAns: \\n\\nQ3. 請問本次發版 API 是否向後相容？\\n\\nAns:\\n\\nQ4. 希望的發佈時間，以及是否可以立即發布？\\n\\nAns:\\n\\nQ5. 本次發版專案是否有使用到 chocomember-redis, chocomember-middleware 相關 node_modules，Redis 相關環境變數是否已經補上？\\n\\nAns: \\n\\nQ6. 發版不順利的情況下，Rollback 的 Tag 是？\\n\\nAns",
+              "text": "上版 Release Note 格式範例，並請回答下列問題\\n\\n### Release Note\\n\\n$projectName [$releaseVer-release]\\n\\n$changeLog\\n\\n### 相關問題\\n\\nQ1. 請問本次發版是否有涉及 Database Schema Change，若有 Migration 是否已經完成？\\n\\nAns: \\n\\nQ2. 請問本次發版是否有涉及 Database / Redis 等連線相關改動，若有發版連線相關前置準備是否已經完成？\\n\\nAns: \\n\\nQ3. 請問本次發版 API 是否向後相容？\\n\\nAns:\\n\\nQ4. 希望的發佈時間，以及是否可以立即發布？\\n\\nAns:\\n\\nQ5. 本次發版專案是否有使用到 chocomember-redis, chocomember-middleware 相關 node_modules，Redis 相關環境變數是否已經補上？\\n\\nAns: \\n\\nQ6. 發版不順利的情況下，Rollback 的 Tag 是？\\n\\nAns",
               "type": "text"
             }
           ]
