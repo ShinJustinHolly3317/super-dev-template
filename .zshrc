@@ -117,8 +117,8 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 # my functions
 chocotoken() {
     curl --header 'Content-Type: application/json' -s \
-    --data "{\"accountId\":\"a7febf48-d41f-48db-b0a3-9360b2227fb3\",\"appId\":\"86a6b258-ac30-4816-bc14-a31e514226d7\",\"licence\":\"editor\",\"scope\":\"write\",\"device\":\"Web\"}" \
-    http://internal-authserver-staging-485645110.us-east-1.elb.amazonaws.com/auth/v1/authorize | jq -r '.accessToken'
+    --data "{\"accountId\":\"輸入\",\"appId\":\"輸入\",\"licence\":\"editor\",\"scope\":\"write\",\"device\":\"Web\"}" \
+    輸入網址 | jq -r '.accessToken'
 }
 
 gt() {
@@ -164,10 +164,10 @@ createJiraIssue() {
     # Set Jira configuration variables
     local jiraDomain="chocotv.atlassian.net"
     local userEmail="justin.kao@choco.media"
-    local apiToken="輸入"
+    local apiToken="輸入 api token"
     local projectKey="SRE"
     local issueType="Task"
-    local assigneeId="輸入"
+    local assigneeId="輸入 account id"
 
     # Prepare Authorization header
     local authHeader=$(echo -n "$userEmail:$apiToken" | base64)
