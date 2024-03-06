@@ -168,18 +168,14 @@ createJiraIssue() {
     local projectKey="SRE"
     local issueType="Task"
     local assigneeId="輸入 account id"
+    local projectName=$(git config --get remote.origin.url | sed -E 's/.*\/(.+)\.git/\1/')
+    local releaseVer=$(git describe --tags --abbrev=0 | sed 's/-staging$//;s/-release$//')
 
     # Prepare Authorization header
     local authHeader=$(echo -n "$userEmail:$apiToken" | base64)
 
     # Read the latest part of CHANGELOG.md into changeLog variable
     local changeLog=$(awk '/^## \[.*\]/ {capture = 1; next} capture && /^\-/ {print; exit}' CHANGELOG.md)
-
-    # Ask user for project information
-    echo "Enter the project name:"
-    read projectName
-    echo "Enter the release version:"
-    read releaseVer
 
     # Set the issue fields
     local postData=$(cat <<EOF
