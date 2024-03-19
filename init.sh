@@ -27,4 +27,5 @@ fi
 echo "Installation completed."
 
 cp ./.zshrc ~/.zshrc
+cp ./starship.toml ~/.config/starship.toml
 source ~/.zshrc
