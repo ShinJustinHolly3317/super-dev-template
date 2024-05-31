@@ -205,6 +205,9 @@ createJiraIssue() {
     },
     "assignee": {
       "id": "$assigneeId"
+    },
+    "parent": {
+      "key": "SRE-填入票號"
     }
   }
 }
