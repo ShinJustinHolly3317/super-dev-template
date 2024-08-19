@@ -15,6 +15,9 @@ brew update
 # Install packages
 brew install git colima docker asdf awscli starship telnet
 
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+
 # Check and install Visual Studio Code
 if brew info --cask visual-studio-code &> /dev/null
 then
@@ -28,4 +31,13 @@ echo "Installation completed."
 
 cp ./.zshrc ~/.zshrc
 cp ./starship.toml ~/.config/starship.toml
+
 source ~/.zshrc
+
+# install asdf plugins
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf plugin add python https://github.com/asdf-vm/asdf-python.git
+
+# install asdf versions
+asdf install nodejs 20.10.0
+asdf install python 3.12.3
