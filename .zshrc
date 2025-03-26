@@ -14,6 +14,7 @@ export LANG=en_US.UTF-8
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -106,10 +107,10 @@ source $ZSH/oh-my-zsh.sh
 
 # Golang
 # export GOROOT=~/.asdf/installs/golang/1.20.7/go
-. ~/.asdf/plugins/golang/set-env.zsh
+# . ~/.asdf/plugins/golang/set-env.zsh
 
 # asdf 
-export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"   
+# export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"   
 
 # vscode
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -222,5 +223,26 @@ EOF
          "https://$jiraDomain/rest/api/3/issue"
 }
 
+gitRestart() {
+	gsw master && ggl
+}
 
-check_and_start_colima
+# run single unit test in docker
+dockerUnitTest() {
+  local modified_path="${1/#taxigo_api/.}"
+  docker exec -it api npm run test-single "$modified_path" -- --no-migrate-logs
+}
+
+# check_and_start_colima
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# remove all localstack
+purgeLocalstackSqs() {
+   ~/LINEGO/some-good-scripts/purge-all-sqs
+}
+
+# AWS
+export AWS_PAGER=""
