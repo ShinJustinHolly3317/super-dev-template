@@ -230,7 +230,11 @@ gitRestart() {
 # run single unit test in docker
 dockerUnitTest() {
   local modified_path="${1/#taxigo_api/.}"
-  docker exec -it api npm run test-single "$modified_path" -- --no-migrate-logs
+  docker exec -it api npm run test-single "$modified_path"
+}
+
+dockerTestAll() {
+  docker exec -it api npm run test -- --no-migrate-logs
 }
 
 # check_and_start_colima
@@ -246,3 +250,11 @@ purgeLocalstackSqs() {
 
 # AWS
 export AWS_PAGER=""
+
+# Added by Antigravity
+export PATH="/Users/justin.kao/.antigravity/antigravity/bin:$PATH"
+
+export PATH=$PATH:~/mcp-servers
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
